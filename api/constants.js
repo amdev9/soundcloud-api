@@ -1,7 +1,8 @@
 var _ = require('lodash');
 
 const ROUTES = {
-  oauth2: 'oauth2/token?client_id=<%= client_id %>'
+  oauth2: 'oauth2/token?client_id=<%= client_id %>',
+  users: 'users?client_id=<%= client_id %>'
 };
 
 const CLIENT = {

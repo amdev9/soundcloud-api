@@ -1,12 +1,13 @@
 var _ = require('lodash');
 var soundCli = require("./index");
 
-soundCli.oauth2('signup', 'client_credentials');
-
-
  
-
-// form.append('my_buffer', new Buffer(10));
-// form.append('my_file', fs.createReadStream('/foo/bar.jpg'));
-
- 
+soundCli.Oauth2.post('signup', 'client_credentials')
+  .then(function (res) {
+    console.log(res.access_token);
+    soundCli.Users.post(res.access_token);
+    
+  })
+  .catch(function (err) {
+    console.log(err);  
+  });
