@@ -3,15 +3,11 @@ var _ = require('lodash')
 var Promise = require('bluebird');
 var request = require('request-promise');
 var querystring = require('querystring');
-var fs = require('fs');
-
-function Users() {
-
-}
-
+ 
+function Users() {}
 module.exports = Users;
 
-Users.post = function(access_token) {
+Users.post = function(access_token, email, password, month, date_of_birth) {
     
   var Constants = require('./constants')
   var Helpers = require('../helpers')
@@ -20,16 +16,9 @@ Users.post = function(access_token) {
     client_id: Constants.CLIENT.ID
   });
   endpoint = _.template(endpointTemplate)({'client_id': client_data });
-   
 
   var boundary = Helpers.generateUUID(true);
-  
-  var password = 'EKZ84D5Q';
-  var month = '3';
-  var date_of_birth = '1995';
-  var email = 'rabeccavance95@gmail.com';
   var gender = 'female';
-
   var form = {
     'user[terms_of_use]': 1,
     'user[password_confirmation]': password,
@@ -49,15 +38,14 @@ Users.post = function(access_token) {
       'Accept': 'application/json',
       'App-Version': '484',
       'App-Environment': 'prod',
-      'Device-Locale': 'en-US',
+      // 'Device-Locale': 'en-US',
       'UDID': Helpers.generateUUID(false),
       'ADID': Helpers.generateUUID(true),
       'ADID-TRACKING': true,
       'Content-type': 'multipart/form-data; boundary=' + boundary,
-      // 'Content-Length': form.length,
       'Authorization': 'OAuth ' + access_token
     },
-    json: true // Automatically parses the JSON string in the response
+    json: true  
   };
   return request(options);
 };

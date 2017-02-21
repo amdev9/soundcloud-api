@@ -3,9 +3,7 @@ var Promise = require('bluebird');
 var request = require('request-promise');
 var querystring = require('querystring');
 
-function Oauth2() {
-
-}
+function Oauth2() {}
 module.exports = Oauth2;
 
 Oauth2.post = function(scope, grant_type) {
@@ -43,7 +41,9 @@ Oauth2.post = function(scope, grant_type) {
       'Content-type': 'multipart/form-data; boundary=' + boundary,
       'Content-Length': form.length,
     },
-    json: true // Automatically parses the JSON string in the response
+    json: true
   };
   return request(options);
 };
+
+
