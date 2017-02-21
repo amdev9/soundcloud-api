@@ -41,7 +41,6 @@ Request.defaultHeaders = {
   'ADID-TRACKING': true,
   'Content-type': 'multipart/form-data; boundary=' + boundary
        // 'Device-Locale': 'en-US',
-      // 'Authorization': 'OAuth ' + access_token
 };
 
 Request.requestClient = request.defaults({});
@@ -62,10 +61,10 @@ Request.prototype.setOptions = function(options, override) {
   return this;
 };
 
-Request.prototype.setAuthorization = function(token) {
-  this.removeHeader('Authorization')
+Request.prototype.setAuthorization = function(access_token) {
+  //this.removeHeader('Authorization')
   this.setHeaders({
-    'Authorization': 'Bearer ' + token
+    'Authorization': 'OAuth ' + access_token
   })
   return this;
 };

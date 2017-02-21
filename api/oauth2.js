@@ -39,7 +39,7 @@ Oauth2.post = function(scope, grant_type) {
       'ADID': Helpers.generateUUID(true),
       'ADID-TRACKING': true,
       'Content-type': 'multipart/form-data; boundary=' + boundary,
-      'Content-Length': form.length,
+      // 'Content-Length': form.length,
     },
     json: true
   };

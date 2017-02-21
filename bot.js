@@ -10,11 +10,12 @@ soundCli.Oauth2.post('signup', 'client_credentials')
     return res.access_token;
   })
   .then(function(token) {
-    return soundCli.Users.post(token, email, password, month, date_of_birth);
+    console.log(token);
+  //   return soundCli.Users.post(token, email, password, month, date_of_birth);
   })
-  .then(function(res) {
-    console.log(res);
-  })
+  // .then(function(res) {
+  //   console.log(res);
+  // })
   .catch(function (err) {
     console.log(err);  
   });
