@@ -1,6 +1,7 @@
 var _ = require('lodash')
 var Promise = require('bluebird');
 var request = require('request-promise');
+var querystring = require('querystring');
 
 function Oauth2() {
 
@@ -11,7 +12,10 @@ Oauth2.post = function(scope, grant_type) {
   var Constants = require('./constants')
   var Helpers = require('../helpers')
   endpoint = Constants.API_URL + Constants.ROUTES.oauth2;
-  oauth_cli = _.template(endpoint)({'client_id': Constants.CLIENT.ID });
+  var client_data = querystring.stringify({ 
+    client_id: Constants.CLIENT.ID
+  });
+  oauth_cli = _.template(endpoint)({'client_id': client_data });
   
   var FormData = require('form-data');
   var fs = require('fs');

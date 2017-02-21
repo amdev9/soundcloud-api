@@ -2,6 +2,8 @@
 var _ = require('lodash')
 var Promise = require('bluebird');
 var request = require('request-promise');
+var querystring = require('querystring');
+var fs = require('fs');
 
 function Users() {
 
@@ -14,15 +16,18 @@ Users.post = function(access_token) {
   var Constants = require('./constants')
   var Helpers = require('../helpers')
   endpointTemplate = Constants.API_URL + Constants.ROUTES.users;
-  endpoint = _.template(endpointTemplate)({'client_id': Constants.CLIENT.ID });
+  var client_data = querystring.stringify({ 
+    client_id: Constants.CLIENT.ID
+  });
+  endpoint = _.template(endpointTemplate)({'client_id': client_data });
    
-  var fs = require('fs');
+
   var boundary = Helpers.generateUUID(true);
   
-  var password = 'testersmans';
-  var month = 2;
-  var date_of_birth = 1991;
-  var email = 'koro3asdasd@gmail.com';
+  var password = 'EKZ84D5Q';
+  var month = '3';
+  var date_of_birth = '1995';
+  var email = 'rabeccavance95@gmail.com';
   var gender = 'female';
 
   var form = {
@@ -49,7 +54,7 @@ Users.post = function(access_token) {
       'ADID': Helpers.generateUUID(true),
       'ADID-TRACKING': true,
       'Content-type': 'multipart/form-data; boundary=' + boundary,
-      'Content-Length': form.length,
+      // 'Content-Length': form.length,
       'Authorization': 'OAuth ' + access_token
     },
     json: true // Automatically parses the JSON string in the response

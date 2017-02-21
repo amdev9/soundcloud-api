@@ -4,9 +4,13 @@ var soundCli = require("./index");
  
 soundCli.Oauth2.post('signup', 'client_credentials')
   .then(function (res) {
-    console.log(res.access_token);
-    soundCli.Users.post(res.access_token);
-    
+    return res.access_token;
+  })
+  .then(function(token) {
+    return soundCli.Users.post(token);
+  })
+  .then(function(res) {
+    console.log(res);
   })
   .catch(function (err) {
     console.log(err);  
