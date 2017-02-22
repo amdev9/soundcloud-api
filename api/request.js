@@ -3,8 +3,8 @@ var Promise = require('bluebird');
 var request = require('request-promise');
 var Constants = require('./constants');
 var Helpers = require('../helpers');
-var routes = require('./routes');
-var Session = require('./session');
+// var routes = require('./routes');
+// var Session = require('./session');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -38,8 +38,7 @@ Request.defaultHeaders = {
   'App-Environment': 'prod',
   'UDID': Helpers.generateUUID(false),
   'ADID': Helpers.generateUUID(true),
-  'ADID-TRACKING': true,
-  'Content-type': 'multipart/form-data; boundary=' + boundary
+  'ADID-TRACKING': true
        // 'Device-Locale': 'en-US',
 };
 

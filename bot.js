@@ -7,7 +7,8 @@ var date_of_birth = '1995';
 
 soundCli.Oauth2.post('signup', 'client_credentials')
   .then(function (res) {
-    return res.access_token;
+    // console.log("res");
+    return res;
   })
   .then(function(token) {
     console.log(token);

@@ -4,13 +4,15 @@ var Promise = require('bluebird');
 var request = require('request-promise');
 var querystring = require('querystring');
  
+var Constants = require('./constants')
+var Helpers = require('../helpers')
+var Request = require('./request')
+
 function Users() {}
 module.exports = Users;
 
 Users.post = function(access_token, email, password, month, date_of_birth) {
     
-  var Constants = require('./constants')
-  var Helpers = require('../helpers')
   endpointTemplate = Constants.API_URL + Constants.ROUTES.users;
   var client_data = querystring.stringify({ 
     client_id: Constants.CLIENT.ID
@@ -28,25 +30,37 @@ Users.post = function(access_token, email, password, month, date_of_birth) {
     'user[date_of_birth][month]': month,
     'user[password]': password
   }
+  return new Request()
+    .setUrl(endpoint)
+    .setMethod('POST')
+    .setHeaders({
+      'Content-type': 'multipart/form-data; boundary=' + boundary
+    })
+    .setOptions({
+      formData: form
+    })
+    .setAuthorization(access_token)
+    .send()
+  
 
-  var options = {
-    method: 'POST',
-    uri: endpoint,
-    formData: form,
-    headers: {
-      'Connection': 'Keep-Alive',
-      'Accept': 'application/json',
-      'App-Version': '484',
-      'App-Environment': 'prod',
-      // 'Device-Locale': 'en-US',
-      'UDID': Helpers.generateUUID(false),
-      'ADID': Helpers.generateUUID(true),
-      'ADID-TRACKING': true,
-      'Content-type': 'multipart/form-data; boundary=' + boundary,
-      'Authorization': 'OAuth ' + access_token
-    },
-    json: true  
-  };
-  return request(options);
+  // var options = {
+  //   method: 'POST',
+  //   uri: endpoint,
+  //   formData: form,
+  //   headers: {
+  //     'Connection': 'Keep-Alive',
+  //     'Accept': 'application/json',
+  //     'App-Version': '484',
+  //     'App-Environment': 'prod',
+  //     // 'Device-Locale': 'en-US',
+  //     'UDID': Helpers.generateUUID(false),
+  //     'ADID': Helpers.generateUUID(true),
+  //     'ADID-TRACKING': true,
+  //     'Content-type': 'multipart/form-data; boundary=' + boundary,
+  //     'Authorization': 'OAuth ' + access_token
+  //   },
+  //   json: true  
+  // };
+  // return request(options);
 };
 
